@@ -1,0 +1,12 @@
+{
+  "name": "pullLoading",
+  "version": "1.0.0",
+  "description": "拖动刷新加载",
+  "author": "yl",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-uglify": "^3.0.1",
+    "gulp-connect": "^2.3.1"
+  }
+}
