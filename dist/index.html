@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>下拉刷新上拉加载测试</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .content {
+        padding: 25px 0;
+        font-size: 15px;
+        font-weight: bold;
+        color: #1c1c1c;
+    }
+    
+    .content li {
+        line-height: 60px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        transition: all .2s;
+    }
+    
+    .content li:active {
+        background: rgba(0, 0, 0, .05);
+    }
+    
+    .content li:first-child {
+        border-top: 1px solid #ccc;
+    }
+    
+    .pullload {
+        display: none;
+        text-align: center;
+        font-size: 14px;
+        color: #616161;
+        margin-bottom: 10px;
+    }
+    
+    .pulldown {
+        position: absolute;
+        width: 100%;
+        line-height: 50px;
+        top: -50px;
+        left: 0;
+        z-index: 100;
+        display: block;
+    }
+    
+    .pulldown img {
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+        width: 26px;
+        height: 26px;
+    }
+    
+    .container {
+        height: 100vh;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .loading-ico {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -3px;
+        margin-right: 5px;
+        width: 22px;
+        height: 22px;
+        -webkit-transition-property: -webkit-transform;
+        -webkit-animation: rotate 1.5s ease infinite;
+        animation: rotate 1.5s ease infinite;
+        -webkit-animation-name: loadingRotate;
+        animation-name: loadingRotate;
+    }
+    
+    @-webkit-keyframes loadingRotate {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes loadingRotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <p class="pullload pulldown"><img src="./images/loading.png" class="loading-ico" alt=""></p>
+    <div class="container">
+        <ul class="content">
+            <li>1. 下拉刷新上拉加载测试</li>
+        </ul>
+        <p class="pullload pullup-before">上拉加载更多</p>
+        <p class="pullload pullup-in"><img src="./images/loading.png" class="loading-ico" alt="">加载中...</p>
+        <p class="pullload pullup-end">没有更多了</p>
+    </div>
+</body>
+<script src="./js/pullloading.js"></script>
+<script>
+var pullLoading = new PullLoading({ //实例化插件
+    scrollEle: document.querySelector('.container'), //滚动容器dom实例 注意需要设置容器高度一般为100vh 同时需要设置overflow: scroll; -webkit-overflow-scrolling: touch;(ios 滚动必须)
+    refreshEl: document.querySelector('.pulldown'), //下拉刷新loading dom实例 需要自定义样式 
+    pullUpBefore: document.querySelector('.pullup-before'), //上拉加载未开始前的提示dom 需要自定义样式
+    pullUpIn: document.querySelector('.pullup-in'), //上拉加载中loading 提示dom实例 需要自定义样式
+    pullUpEnd: document.querySelector('.pullup-end'), //上拉加载完毕所有数据显示的提示dom实例 需要自定义样式
+    pullUp: function(pl) { //上拉加载回调函数参数是插件实例本身
+        setTimeout(function() {
+            var content = document.querySelector('.content');
+            var liNum = document.querySelectorAll('.content li').length;
+            for (var i = 0; i < 5; i++) {
+                var html = document.createElement('li');
+                html.innerText = liNum + i + 1 + '. 下拉刷新上拉加载测试';
+                html.onclick = function() {
+                    alert('点击了一条新增的测试数据')
+                };
+                content.appendChild(html);
+            };
+            pl.stopPull();
+            if (document.querySelectorAll('li').length > 25) {
+                pl.pullUpEnd(true);
+            }
+        }, 1000)
+    },
+    pullDown: function(pl) { //下拉刷新回调函数参数是插件实例本身
+        setTimeout(function() {
+            var content = document.querySelector('.content');
+            content.innerHTML = '<li>1. 下拉刷新上拉加载测试</li>';
+            if (true) { //请求需判定数据是否全部获取
+                pullLoading.pullUpEnd(false);
+            };
+            pl.stopPull();
+        }, 1000)
+    }
+});
+// console.log(pullLoading)
+</script>
+
+</html>
