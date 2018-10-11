@@ -85,7 +85,7 @@ var pullLoading = new PullLoading({
 3. 方法
 本插件有两个方法：`pullLoading.stopPull()`、 `pullLoading.pullUpEnd(bool)`。
 
-`.stopPull()` 用于告诉插件回调里面的代码已执行完成上拉加载或下拉刷新完毕。
+`.stopPull()` 用于告诉插件回调里面的代码已执行完成上拉加载或下拉刷新完毕, 在ajax请求完成之后调
 
 `.pullUpEnd(bool)` 用于设置上拉加载是否加载完所有数据，有一个参数。如果加载完所有数据则传`true`否则`false`. 
 
