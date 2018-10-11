@@ -6,7 +6,8 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-uglify": "^3.0.1",
-    "gulp-connect": "^2.3.1"
+    "gulp-connect": "^2.3.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1"
   }
 }

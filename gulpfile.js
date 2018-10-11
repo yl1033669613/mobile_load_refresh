@@ -1,15 +1,17 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
-    connect = require('gulp-connect');
+    connect = require('gulp-connect'),
+    rename = require('gulp-rename');
 
 gulp.task('js', function(cb) {
     return gulp.src('./src/js/*.*')
         .pipe(gulp.dest('./dist/js/'));
 });
 
-gulp.task('uglify',['js'], function() {
+gulp.task('uglify', ['js'], function() {
     gulp.src(['./src/js/pullLoading.js'])
         .pipe(uglify())
+        .pipe(rename('pullLoading.min.js'))
         .pipe(gulp.dest('./dist/js'));
 });
 
@@ -28,10 +30,10 @@ gulp.task('watch', function() {
 
 gulp.task('server', function() {
     connect.server({
-        port: 8081,
+        port: 8080,
         root: './dist/'
     });
 });
 
 gulp.task("default", ['js', 'copy', 'watch', 'server']);
-gulp.task("build", ['uglify', 'copy']);
+gulp.task("build", ['js', 'uglify', 'copy']);
