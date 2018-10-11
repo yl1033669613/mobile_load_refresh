@@ -1,5 +1,5 @@
 # mobile_load_refresh
-一个下拉刷新上拉加载的移动端原生js插件不依赖任何额外的js库，需要自行设计下拉刷新上拉加载提示，以及loading的样式然后将dom实例传入插件即可，5kb的大小简单易用。
+一个下拉刷新上拉加载的移动端原生js插件,不依赖任何额外的js库，需要自行设计下拉刷新上拉加载提示，以及loading的样式然后将dom实例传入插件即可，5kb的大小简单易用。
 可用的 [demo](https://github.com/yl1033669613/mobile_load_refresh/tree/master/dist) 。浏览器打开`index.html`查看插件使用例子。
 
 ## 用法
@@ -55,7 +55,7 @@
 <div class="container">
 	...
 	<p class="pullload pullup-before">上拉加载更多</p> <!-- 上拉加载前 -->
-	<p class="pullload pullup-in"><img src="./images/loading.png" class="loading-ico" alt="">加载中...</p> <!-- 上拉加载前中 -->
+	<p class="pullload pullup-in"><img src="./images/loading.png" class="loading-ico" alt="">加载中...</p> <!-- 上拉加载中 -->
 	<p class="pullload pullup-end">没有更多了</p> <!-- 所有数据加载完毕 -->
 </div>
 ```
@@ -84,9 +84,17 @@ var pullLoading = new PullLoading({
 ```
 3. 方法
 本插件有两个方法：`pullLoading.stopPull()`、 `pullLoading.pullUpEnd(bool)`。
+
 `.stopPull()` 用于告诉插件回调里面的代码已执行完成上拉加载或下拉刷新完毕。
+
 `.pullUpEnd(bool)` 用于设置上拉加载是否加载完所有数据，有一个参数。如果加载完所有数据则传`true`否则`false`. 
+
 **注意在下拉刷新时仍然需要程序员判断是否加载完所有数据如果是则`.pullUpEnd(true)`否则`.pullUpEnd(false)`**
 
 ## demo效果图
 ![图片名称](https://github.com/yl1033669613/mobile_load_refresh/blob/master/demoGif.gif)
+
+## 最后
+利用`gulp` 简单的对js进行了压缩处理
+
+欢迎路过的道友指出不足之处, 或者提供更好的想法.
