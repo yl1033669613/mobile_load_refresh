@@ -101,9 +101,11 @@
     </style>
 </head>
 
-<body>
-    <p class="pullload pulldown"><img src="./images/loading.png" class="loading-ico" alt=""></p>
+<body> 
+    <!-- 滚动容器 注意需要设置容器高度同时需要设置overflow: scroll; -webkit-overflow-scrolling: touch;(ios 滚动必须)-->
     <div class="container">
+        <!-- loading以及提示 可以不用放在滚动容器内, 只需要在实例化的时候传入必要参数即可 -->
+        <p class="pullload pulldown"><img src="./images/loading.png" class="loading-ico" alt=""></p> 
         <ul class="content">
             <li>1. 下拉刷新上拉加载测试</li>
         </ul>
@@ -115,7 +117,7 @@
 <script src="./js/pullloading.js"></script>
 <script>
 var pullLoading = new PullLoading({ //实例化插件
-    scrollEle: document.querySelector('.container'), //滚动容器dom实例 注意需要设置容器高度一般为100vh 同时需要设置overflow: scroll; -webkit-overflow-scrolling: touch;(ios 滚动必须)
+    scrollEle: document.querySelector('.container'), //滚动容器dom实例 
     refreshEl: document.querySelector('.pulldown'), //下拉刷新loading dom实例 需要自定义样式 
     pullUpBefore: document.querySelector('.pullup-before'), //上拉加载未开始前的提示dom 需要自定义样式
     pullUpIn: document.querySelector('.pullup-in'), //上拉加载中loading 提示dom实例 需要自定义样式
