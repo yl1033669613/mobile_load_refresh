@@ -107,7 +107,7 @@
         <!-- loading以及提示 可以不用放在滚动容器内, 只需要在实例化的时候传入必要参数即可 -->
         <p class="pullload pulldown"><img src="./images/loading.png" class="loading-ico" alt=""></p> 
         <ul class="content">
-            <li>1. 下拉刷新上拉加载测试</li>
+            <li>1. 请在手机模式下刷新后查看</li>
         </ul>
         <p class="pullload pullup-before">上拉加载更多</p>
         <p class="pullload pullup-in"><img src="./images/loading.png" class="loading-ico" alt="">加载中...</p>
@@ -128,7 +128,7 @@ var pullLoading = new PullLoading({ //实例化插件
             var liNum = document.querySelectorAll('.content li').length;
             for (var i = 0; i < 5; i++) {
                 var html = document.createElement('li');
-                html.innerText = liNum + i + 1 + '. 下拉刷新上拉加载测试';
+                html.innerText = liNum + i + 1 + '. 请在手机模式下刷新后查看';
                 html.onclick = function() {
                     alert('点击了一条新增的测试数据')
                 };
@@ -143,7 +143,7 @@ var pullLoading = new PullLoading({ //实例化插件
     pullDown: function(pl) { //下拉刷新回调函数参数是插件实例本身
         setTimeout(function() {
             var content = document.querySelector('.content');
-            content.innerHTML = '<li>1. 下拉刷新上拉加载测试</li>';
+            content.innerHTML = '<li>1. 请在手机模式下刷新后查看</li>';
             if (true) { //请求需判定数据是否全部获取
                 pullLoading.pullUpEnd(false);
             };
