@@ -1,7 +1,7 @@
 # mobile_load_refresh
 一个下拉刷新上拉加载的移动端原生js插件,不依赖任何额外的js库，需要自行设计下拉刷新上拉加载提示，以及loading的样式然后将dom实例传入插件即可，5kb的大小简单易用。
 
-可用的 [demo](https://htmlpreview.github.io/?https://github.com/yl1033669613/mobile_load_refresh/blob/master/dist/index.html)
+可用的 [demo](https://yl1033669613.github.io/mobile_load_refresh/dist/index.html)
 
 ## 用法
 1. html部分需要一个滚动容器，通常为一个`div`，必须设置容器的高度。并且容器需要一个可滚动的属性css设置`overflow: scroll`, 对于ios设备还需要`-webkit-overflow-scrolling: touch`否则ios设备下无法正常滚动。
