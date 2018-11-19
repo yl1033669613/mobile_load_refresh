@@ -1,20 +1,12 @@
 # mobile_load_refresh
 一个下拉刷新上拉加载的移动端原生js插件,不依赖任何额外的js库，需要自行设计下拉刷新上拉加载提示，以及loading的样式然后将dom实例传入插件即可，5kb的大小简单易用。
 
-可用的 [demo](https://yl1033669613.github.io/mobile_load_refresh/dist/index.html) （pc端查看时请使用浏览器的移动端模拟功能，并且在移动端模式下刷新一次。）
+可用的 [demo](https://yl1033669613.github.io/mobile_load_refresh/dist/index.html) （pc端查看时请使用浏览器的移动端模拟功能。）
 
 ## 用法
-1. html部分需要一个滚动容器，通常为一个`div`，必须设置容器的高度。并且容器需要一个可滚动的属性css设置`overflow: scroll`, 对于ios设备还需要`-webkit-overflow-scrolling: touch`否则ios设备下无法正常滚动。
+1. html部分需要一个滚动容器，通常为一个`div`，必须设置容器的高度（`scrollEleHeight`）。
 
 ```
-<style>
-	.container {
-        height: 100vh;
-        overflow: scroll;
-        -webkit-overflow-scrolling: touch;
-    }
-</style>
-
 <div class="container"> <!-- 滚动容器 -->
 	...
 </div>
@@ -22,7 +14,7 @@
 如果启用了下拉刷新（参数中设置了下拉刷新回调函数），则需要一个下拉刷新的loading 该laoding需要开发者根据自己项目要求自行设计。
 
 ```
-<!-- 下拉刷新loading 定位在屏幕之外，下拉拖动时可以被拖动回屏幕 -->
+<!-- 下拉刷新loading 请设计好下拉刷新的样式最好将其定位在屏幕或者容器之外在拖动时能拖动回来 -->
 <style>
 	.pulldown {
         position: absolute;
@@ -70,7 +62,8 @@
 ```javascript
 var pullLoading = new PullLoading({
 	scrollEle: document.querySelector('.container'), //下拉刷新容器dom实例
-	refreshEl: document.querySelector('.pulldown'), //如果需要下拉刷新（必选）下拉刷新loading实例
+    scrollEleHeight: '100vh', //设置容器高度 css 样式值  可以是50% 50vh 50px .5rem  默认300px
+	refreshEl: document.querySelector('.pulldown'), //如果需要下拉刷新下拉刷新loading实例
 	pullUpBefore: document.querySelector('.pullup-before'), //上拉加载未开始前的提示dom 需要自定义样式
     pullUpIn: document.querySelector('.pullup-in'), //上拉加载中loading 提示dom实例 需要自定义样式
     pullUpEnd: document.querySelector('.pullup-end'), //上拉加载完毕所有数据显示的提示dom实例 需要自定义样式
@@ -91,6 +84,8 @@ var pullLoading = new PullLoading({
 `.pullUpEnd(bool)` 用于设置上拉加载是否加载完所有数据，有一个参数。如果加载完所有数据则传`true`否则`false`. 
 
 **注意在下拉刷新时仍然需要程序员判断是否加载完所有数据如果是则`.pullUpEnd(true)`否则`.pullUpEnd(false)`**
+
+具体[示例代码](https://github.com/yl1033669613/mobile_load_refresh/blob/master/dist/index.html)
 
 ## demo效果图
 ![图片名称](https://github.com/yl1033669613/mobile_load_refresh/blob/master/demoGif.gif)

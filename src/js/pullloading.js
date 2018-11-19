@@ -32,13 +32,14 @@
         // 初始化函数
         _init: function(opt) {
             var defOpt = {
-                scrollEle: null, //可滚动元素 需设置height（通常为100vh）overflow: scroll; -webkit-overflow-scrolling: touch;(ios 滚动必须)
+                scrollEle: null, //可滚动元素 下拉刷新上拉加载容器 不能是HTML或者BODY节点
+                scrollEleHeight: '300px', //string css 样式值  可以是50% 50vh 50px .5rem   必须
                 refreshEl: null, //下拉刷新loading Dom
                 pullUpBefore: null, //加载前
                 pullUpIn: null, //加载中
                 pullUpEnd: null, //加载完所有数据
-                pullDown: null, //刷新完毕回调
-                pullUp: null //加载完毕回调
+                pullDown: null, //刷新完毕回调 cb
+                pullUp: null //加载完毕回调 cb
             };
 
             this.dte = 100;
@@ -51,6 +52,9 @@
             this.option = extend(defOpt, opt, true);
 
             if (this._checkOption()) {
+                //设置容器必须css
+                this._css(this.option.scrollEle, { overflow: 'scroll', webkitOverflowScrolling: 'touch', height: this.option.scrollEleHeight });
+
                 if (this.isPullUp) {
                     this._show(this.option.pullUpBefore);
                     this._hide(this.option.pullUpIn);
@@ -101,11 +105,11 @@
                 refreshLoadingEleHeight = self.option.refreshEl.offsetHeight;
             };
 
-            self.option.scrollEle.ontouchstart = function(e) {
+            self.option.scrollEle.addEventListener('touchstart', function(e){
                 self.currY = e.changedTouches[0].clientY;
-            };
+            });
 
-            self.option.scrollEle.ontouchmove = function(e) {
+            self.option.scrollEle.addEventListener('touchmove', function(e) {
                 if (self._getScrollTop() == 0) { //当向上滚动的高度=0，或者说滚动位置处在最顶部 scrollTop = 0
                     if (self._getScrollHeight() == self._getClientHeight() && e.changedTouches[0].clientY - self.currY < 0) { //可滚动容器没有滚动条 并且为向上划时
                         e.preventDefault(); //没有滚动条的情况继续向上划动阻止页面默认行为
@@ -122,7 +126,7 @@
                             if (_pullDownY > refreshLoadingEleHeight) {
                                 _pullDownY = refreshLoadingEleHeight
                             };
-                            self._css(self.option.refreshEl, { transition: 'transform .1s', transform: 'translate(0, ' + _pullDownY + 'px)' }); //设置loading提示dom位置使其跟随拖动有一个下拉的动作
+                            self._css(self.option.refreshEl, { transition: 'transform 0s', transform: 'translate(0, ' + _pullDownY + 'px)' }); //设置loading提示dom位置使其跟随拖动有一个下拉的动作
                         };
                         if (e.changedTouches[0].clientY - self.currY > self.dte) { //下拉到指定阈值 默认100像素 触发下拉刷新回调
                             self._css(self.option.refreshEl, { transform: 'translate(0, ' + refreshLoadingEleHeight + 'px)' });
@@ -130,25 +134,24 @@
                         }
                     }
                 }
-            };
+            });
 
-            self.option.scrollEle.ontouchend = function(e) {
+            self.option.scrollEle.addEventListener('touchend', function(e) {
                 if (self._getScrollTop() == 0) {
                     if (e.changedTouches[0].clientY - self.currY > 0 && e.changedTouches[0].clientY - self.currY < self.dte) { //下拉未拖动到阈值时恢复loading dom位置
                         self._css(self.option.refreshEl, { transition: 'transform .2s', transform: 'translate(0, 0)' });
                     }
                 }
-            }
+            })
         },
         //当存在滚动条时，上拉加载以滚动到底部为触发条件
         _scrollHandle: function() {
             var self = this;
-
-            self.option.scrollEle.onscroll = function(e) {
+            self.option.scrollEle.addEventListener('scroll', function(e) {
                 if (self._getScrollTop() + self._getClientHeight() == self._getScrollHeight()) {
                     self._pullUp();
                 }
-            }
+            })
         },
         _pullUp: function() {
             if (this.isPullUp && !this.pullUpLoading && !this.isPullUpEnd && !this.pullDownLoading) {
@@ -188,6 +191,9 @@
                 var attr = prop.replace(/[A-Z]/g, function(word) {
                     return '-' + word.toLowerCase();
                 });
+                if (attr.indexOf('webkit') != -1) {
+                    attr = '-' + attr;
+                };
                 dom.style[attr] = styleObj[prop];
             }
         },

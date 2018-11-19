@@ -12,29 +12,7 @@
         margin: 0;
         padding: 0;
     }
-    
-    .content {
-        padding: 25px 0;
-        font-size: 15px;
-        font-weight: bold;
-        color: #1c1c1c;
-    }
-    
-    .content li {
-        line-height: 60px;
-        text-align: center;
-        border-bottom: 1px solid #ccc;
-        transition: all .2s;
-    }
-    
-    .content li:active {
-        background: rgba(0, 0, 0, .05);
-    }
-    
-    .content li:first-child {
-        border-top: 1px solid #ccc;
-    }
-    
+
     .pullload {
         display: none;
         text-align: center;
@@ -59,12 +37,6 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, .6);
         width: 26px;
         height: 26px;
-    }
-    
-    .container {
-        height: 100vh;
-        overflow: scroll;
-        -webkit-overflow-scrolling: touch;
     }
     
     .loading-ico {
@@ -98,13 +70,35 @@
             transform: rotate(360deg);
         }
     }
+
+    .content {
+        padding: 25px 0;
+        font-size: 15px;
+        font-weight: bold;
+        color: #1c1c1c;
+    }
+    
+    .content li {
+        line-height: 60px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        transition: all .2s;
+    }
+    
+    .content li:active {
+        background: rgba(0, 0, 0, .05);
+    }
+    
+    .content li:first-child {
+        border-top: 1px solid #ccc;
+    }
     </style>
 </head>
 
 <body> 
-    <!-- 滚动容器 注意需要设置容器高度同时需要设置overflow: scroll; -webkit-overflow-scrolling: touch;(ios 滚动必须)-->
-    <div class="container">
-        <!-- loading以及提示 可以不用放在滚动容器内, 只需要在实例化的时候传入必要参数即可 -->
+    <!-- 滚动容器 有必要设置容器高度  默认300px-->
+    <div class="container" style="-webkit-overflow-scrolling: touch">
+        <!-- loading以及提示 可以不用放在滚动容器内, 只需要在实例化的时候传入必要参数即可 请设计好下拉刷新的样式最好将其定位在屏幕或者容器之外在拖动时能拖动回来-->
         <p class="pullload pulldown"><img src="./images/loading.png" class="loading-ico" alt=""></p> 
         <ul class="content">
             <li>1. 请在手机模式下刷新后查看</li>
@@ -117,7 +111,8 @@
 <script src="./js/pullloading.js"></script>
 <script>
 var pullLoading = new PullLoading({ //实例化插件
-    scrollEle: document.querySelector('.container'), //滚动容器dom实例 
+    scrollEle: document.querySelector('.container'), //滚动容器dom实例 不能是HTML或者BODY节点
+    scrollEleHeight: '100vh', //设置容器高度 css 样式值  可以是50% 50vh 50px .5rem  默认300px
     refreshEl: document.querySelector('.pulldown'), //下拉刷新loading dom实例 需要自定义样式 
     pullUpBefore: document.querySelector('.pullup-before'), //上拉加载未开始前的提示dom 需要自定义样式
     pullUpIn: document.querySelector('.pullup-in'), //上拉加载中loading 提示dom实例 需要自定义样式
