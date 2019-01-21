@@ -28,7 +28,7 @@
     };
 
     PullLoading.prototype = {
-        constructor: this,
+        constructor: PullLoading,
         // 初始化函数
         _init: function(opt) {
             var defOpt = {
@@ -168,7 +168,7 @@
             }
         },
         //滚动区域向卷起的高度
-        _getScrollTop: function() {
+        _getScrollTop: function(ele) {
             return this.option.scrollEle.scrollTop;
         },
         //滚动区域可视高度
