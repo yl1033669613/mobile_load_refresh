@@ -6,46 +6,27 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="HandheldFriendly" content="true" />
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="./lib/pullLoading.css">
     <title>下拉刷新上拉加载测试</title>
     <style>
     * {
         margin: 0;
         padding: 0;
     }
-
-    .pullload {
-        display: none;
-        text-align: center;
-        font-size: 14px;
-        color: #616161;
-        margin-bottom: 10px;
+    
+    .pl-container {
+        height: 100vh;
     }
     
-    .pulldown {
-        position: absolute;
-        width: 100%;
-        line-height: 50px;
-        top: -50px;
-        left: 0;
-        z-index: 100;
-        display: block;
-    }
-    
-    .pulldown img {
+    .loading-ico {
         border-radius: 50%;
         background-color: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, .6);
         width: 26px;
         height: 26px;
-    }
-    
-    .loading-ico {
         display: inline-block;
         vertical-align: middle;
-        margin-top: -3px;
-        margin-right: 5px;
-        width: 22px;
-        height: 22px;
+        margin: 10px 0;
         -webkit-transition-property: -webkit-transform;
         -webkit-animation: rotate 1.5s ease infinite;
         animation: rotate 1.5s ease infinite;
@@ -70,7 +51,7 @@
             transform: rotate(360deg);
         }
     }
-
+    
     .content {
         padding: 25px 0;
         font-size: 15px;
@@ -95,28 +76,24 @@
     </style>
 </head>
 
-<body> 
-    <!-- 滚动容器 有必要设置容器高度  默认300px-->
-    <div class="container" style="-webkit-overflow-scrolling: touch">
-        <!-- loading以及提示 可以不用放在滚动容器内, 只需要在实例化的时候传入必要参数即可 请设计好下拉刷新的样式最好将其定位在屏幕或者容器之外在拖动时能拖动回来-->
-        <p class="pullload pulldown"><img src="./images/loading.png" class="loading-ico" alt=""></p> 
+<body>
+    <!-- 滚动容器 必需设置容器高度  默认300px-->
+    <div class="pl-container">
+        <!-- 下拉刷新loading （需要下拉刷新时必须） -->
+        <div class="pl-down"><img src="./images/loading.png" class="loading-ico" alt=""></div>
         <ul class="content">
             <li>1. 请在手机模式下刷新后查看</li>
         </ul>
-        <p class="pullload pullup-before">上拉加载更多</p>
-        <p class="pullload pullup-in"><img src="./images/loading.png" class="loading-ico" alt="">加载中...</p>
-        <p class="pullload pullup-end">没有更多了</p>
+        <!-- 上拉加载loading （需要上拉加载时必须）-->
+        <div class="pl-up-before">上拉加载更多</div>
+        <div class="pl-up-in"><img src="./images/loading.png" class="loading-ico" style="box-shadow: none; width: 15px;height: 15px;margin: -2px 5px 0 0" alt="">加载中...</div>
+        <div class="pl-up-end">没有更多了</div>
     </div>
 </body>
-<script src="./js/pullloading.js"></script>
+<script src="./lib/pullloading.js"></script>
 <script>
 var pullLoading = new PullLoading({ //实例化插件
-    scrollEle: document.querySelector('.container'), //滚动容器dom实例 不能是HTML或者BODY节点
-    scrollEleHeight: '100vh', //设置容器高度 css 样式值  可以是50% 50vh 50px .5rem  默认300px
-    refreshEl: document.querySelector('.pulldown'), //下拉刷新loading dom实例 需要自定义样式 
-    pullUpBefore: document.querySelector('.pullup-before'), //上拉加载未开始前的提示dom 需要自定义样式
-    pullUpIn: document.querySelector('.pullup-in'), //上拉加载中loading 提示dom实例 需要自定义样式
-    pullUpEnd: document.querySelector('.pullup-end'), //上拉加载完毕所有数据显示的提示dom实例 需要自定义样式
+    container: '.pl-container', //滚动容器dom实例 不能是HTML或者BODY节点
     pullUp: function(pl) { //上拉加载回调函数参数是插件实例本身
         setTimeout(function() {
             var content = document.querySelector('.content');
@@ -139,9 +116,6 @@ var pullLoading = new PullLoading({ //实例化插件
         setTimeout(function() {
             var content = document.querySelector('.content');
             content.innerHTML = '<li>1. 请在手机模式下刷新后查看</li>';
-            if (true) { //请求需判定数据是否全部获取
-                pullLoading.pullUpEnd(false);
-            };
             pl.stopPull();
         }, 1000)
     }

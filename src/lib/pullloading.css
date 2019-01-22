@@ -1,0 +1,30 @@
+.pl-container {
+    display: block;
+    height: 300px;
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
+}
+
+.pl-down,
+.pl-up-before,
+.pl-up-in,
+.pl-up-end {
+    display: none;
+    text-align: center;
+    font-size: 14px;
+    color: #616161;
+}
+
+.pl-down {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 100;
+    display: block;
+}
+
+.pl-up-before,
+.pl-up-in,
+.pl-up-end{
+	margin-bottom: 10px;
+}

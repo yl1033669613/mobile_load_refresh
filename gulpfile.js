@@ -4,15 +4,15 @@ var gulp = require('gulp'),
     rename = require('gulp-rename');
 
 gulp.task('js', function(cb) {
-    return gulp.src('./src/js/*.*')
-        .pipe(gulp.dest('./dist/js/'));
+    return gulp.src('./src/lib/*.*')
+        .pipe(gulp.dest('./dist/lib/'));
 });
 
 gulp.task('uglify', ['js'], function() {
-    gulp.src(['./src/js/pullLoading.js'])
+    gulp.src(['./src/lib/pullLoading.js'])
         .pipe(uglify())
         .pipe(rename('pullLoading.min.js'))
-        .pipe(gulp.dest('./dist/js'));
+        .pipe(gulp.dest('./dist/lib'));
 });
 
 gulp.task('copy', function() {
@@ -20,10 +20,12 @@ gulp.task('copy', function() {
         .pipe(gulp.dest('./dist/images/'));
     gulp.src(['./src/*.html'])
         .pipe(gulp.dest('./dist/'));
+    gulp.src(['./src/lib/*.css'])
+        .pipe(gulp.dest('./dist/lib'));
 });
 
 gulp.task('watch', function() {
-    gulp.watch('./src/js/*.js', ['js']);
+    gulp.watch('./src/lib/*.js', ['js']);
     gulp.watch(['./src/images/*.*'], ['copy']);
     gulp.watch(['./src/*.html'], ['copy']);
 });
