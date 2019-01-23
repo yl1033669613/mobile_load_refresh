@@ -6,21 +6,32 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="HandheldFriendly" content="true" />
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 引用css -->
     <link rel="stylesheet" href="./lib/pullLoading.css">
-    <title>下拉刷新上拉加载测试</title>
+    <title>下拉刷新上拉加载Demo</title>
     <style>
     * {
         margin: 0;
         padding: 0;
     }
     
-    .pl-container {
-        height: 100vh;
+    .content {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1c1c1c;
+    }
+    
+    .content li {
+        line-height: 110px;
+        text-align: center;
+        transition: all .2s;
+        margin-bottom: 10px;
+        background: rgba(0, 0, 0, .05);
     }
     
     .loading-ico {
         border-radius: 50%;
-        background-color: #fff;
+        background-color: #ccc;
         box-shadow: 0 0 10px rgba(0, 0, 0, .6);
         width: 26px;
         height: 26px;
@@ -52,62 +63,52 @@
         }
     }
     
-    .content {
-        padding: 25px 0;
-        font-size: 15px;
-        font-weight: bold;
-        color: #1c1c1c;
-    }
-    
-    .content li {
-        line-height: 60px;
-        text-align: center;
-        border-bottom: 1px solid #ccc;
-        transition: all .2s;
-    }
-    
-    .content li:active {
-        background: rgba(0, 0, 0, .05);
-    }
-    
-    .content li:first-child {
-        border-top: 1px solid #ccc;
+    .bg-gray {
+        background: #ccc;
     }
     </style>
 </head>
 
 <body>
-    <!-- 滚动容器 必需设置容器高度  默认300px-->
-    <div class="pl-container">
-        <!-- 下拉刷新loading （需要下拉刷新时必须） -->
-        <div class="pl-down"><img src="./images/loading.png" class="loading-ico" alt=""></div>
-        <ul class="content">
-            <li>1. 请在手机模式下刷新后查看</li>
-        </ul>
-        <!-- 上拉加载loading （需要上拉加载时必须）-->
-        <div class="pl-up-before">上拉加载更多</div>
-        <div class="pl-up-in"><img src="./images/loading.png" class="loading-ico" style="box-shadow: none; width: 15px;height: 15px;margin: -2px 5px 0 0" alt="">加载中...</div>
-        <div class="pl-up-end">没有更多了</div>
+    <!-- 必需设置容器高度  默认300px-->
+    <div class="pl-container" style="height: 100vh;">
+        <!-- 如果需要下拉刷新loading 请在这里添加以下一项 -->
+        <div class="pl-down bg-gray">
+            <img src="./images/loading.png" class="loading-ico" alt="">
+        </div>
+        <!-- ........... -->
+        <div class="pl-wrapper">
+            <ul class="content">
+                <li>1. only support mobile</li>
+            </ul>
+            <!-- 如果需要上拉加载loading 请在这里添加以下三项-->
+            <div class="pl-up-before bg-gray">上拉加载更多</div>
+            <div class="pl-up-in bg-gray"><img src="./images/loading.png" class="loading-ico" style="box-shadow: none; width: 15px;height: 15px;margin: -2px 5px 0 0" alt="">加载中...</div>
+            <div class="pl-up-end bg-gray">没有更多了</div>
+            <!-- ........... -->
+        </div>
     </div>
 </body>
+<!-- 引用js -->
 <script src="./lib/pullloading.js"></script>
 <script>
-var pullLoading = new PullLoading({ //实例化插件
-    container: '.pl-container', //滚动容器dom实例 不能是HTML或者BODY节点
+var pullLoading = new PullLoading({ //实例化
+    container: '.pl-container',
+    threshold: 80, //可选
     pullUp: function(pl) { //上拉加载回调函数参数是插件实例本身
         setTimeout(function() {
             var content = document.querySelector('.content');
             var liNum = document.querySelectorAll('.content li').length;
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 10; i++) {
                 var html = document.createElement('li');
-                html.innerText = liNum + i + 1 + '. 请在手机模式下刷新后查看';
+                html.innerText = liNum + i + 1 + '. only support mobile';
                 html.onclick = function() {
                     alert('点击了一条新增的测试数据')
                 };
                 content.appendChild(html);
             };
             pl.stopPull();
-            if (document.querySelectorAll('li').length > 25) {
+            if (document.querySelectorAll('li').length > 150) {
                 pl.pullUpEnd(true);
             }
         }, 1000)
@@ -115,11 +116,12 @@ var pullLoading = new PullLoading({ //实例化插件
     pullDown: function(pl) { //下拉刷新回调函数参数是插件实例本身
         setTimeout(function() {
             var content = document.querySelector('.content');
-            content.innerHTML = '<li>1. 请在手机模式下刷新后查看</li>';
-            pl.stopPull();
-        }, 1000)
+            content.innerHTML = '<li>1. only support mobile</li>';
+            pullLoading.stopPull();
+        }, 1800)
     }
 });
+
 // console.log(pullLoading)
 </script>
 
