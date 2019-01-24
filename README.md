@@ -9,20 +9,20 @@
 ```
 <!-- 必需设置容器高度  默认300px-->
 <div class="pl-container" style="height: 100vh;">
-    <!-- 如果需要下拉刷新loading 请在这里添加以下一项 -->
-<div class="pl-down">刷新中...</div>
+        <!-- 如果需要下拉刷新loading 请在这里添加以下一项 -->
+    <div class="pl-down">刷新中...</div>
 
-<div class="pl-wrapper">
-    
-    <!-- <div class="content">
-        列表代码.....
-    </div> -->
-    
-    <!-- 如果需要上拉加载loading 请在这里添加以下三项-->
-    <div class="pl-up-before">上拉加载更多</div>
-    <div class="pl-up-in">加载中...</div>
-    <div class="pl-up-end">没有更多了</div>
-</div>
+    <div class="pl-wrapper">
+        
+        <!-- <div class="content">
+            列表代码.....
+        </div> -->
+        
+        <!-- 如果需要上拉加载loading 请在这里添加以下三项-->
+        <div class="pl-up-before">上拉加载更多</div>
+        <div class="pl-up-in">加载中...</div>
+        <div class="pl-up-end">没有更多了</div>
+    </div>
 </div>
 
 ```
