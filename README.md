@@ -32,7 +32,7 @@
 
 **<link rel="stylesheet" href="your path/pullloading.css">**
 
-**<script src="your path/pullloading.min.js"></script>**
+
 
 ```javascript
 //实例化插件，并传入所需要的参数
