@@ -27,12 +27,22 @@
 
 ```
 
-2. js/css部分下载`pullloading.js`或者`pullloading.min.js`,以及`pullloading.css`在html中引用<br/>
+2. js/css部分下载`pullloading.js`或者`pullloading.min.js`,以及`pullloading.css`在html中引用
 
 
-**<link rel="stylesheet" href="your path/pullloading.css">**
+```html
+<head>
+    ...
+    <link rel="stylesheet" href="your path/pullloading.css">
+</head>
 
+<body>
+    ...
+</body>
 
+<!-- 页面引用js -->
+<script src="your path/pullloading.min.js"></script>
+```
 
 ```javascript
 //实例化插件，并传入所需要的参数
