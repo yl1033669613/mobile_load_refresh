@@ -6,7 +6,7 @@
 ## 用法
 1. html部分需要一个容器，通常为一个`div`(不能是body或者html元素)，必须设置容器。
 
-```
+```html
 <!-- 必需设置容器高度  默认300px-->
 <div class="pl-container" style="height: 100vh;">
         <!-- 如果需要下拉刷新loading 请在这里添加以下一项 -->
@@ -29,9 +29,9 @@
 
 2. js/css部分下载`pullloading.js`或者`pullloading.min.js`,以及`pullloading.css`在html中引用
 
-> <link rel="stylesheet" href="your path/pullloading.css">
+**<link rel="stylesheet" href="your path/pullloading.css">**
 
-> <script src="your path/pullloading.min.js"></script>
+**<script src="your path/pullloading.min.js"></script>**
 
 实例化插件，并传入所需要的参数
 
@@ -45,7 +45,7 @@ var pullLoading = new PullLoading({
     pullDown: function(pl) { // 下拉刷新回调函数参数是插件实例本身 (可选)
         ...
     }
-});
+})
 
 ```
 3. 方法
