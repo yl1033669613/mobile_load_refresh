@@ -30,6 +30,7 @@
 2. js/css部分下载`pullloading.js`或者`pullloading.min.js`,以及`pullloading.css`在html中引用
 
 > <link rel="stylesheet" href="your path/pullloading.css">
+
 > <script src="your path/pullloading.min.js"></script>
 
 实例化插件，并传入所需要的参数
