@@ -27,16 +27,15 @@
 
 ```
 
-2. js/css部分下载`pullloading.js`或者`pullloading.min.js`,以及`pullloading.css`在html中引用
+2. js/css部分下载`pullloading.js`或者`pullloading.min.js`,以及`pullloading.css`在html中引用<br/>
 
 
 **<link rel="stylesheet" href="your path/pullloading.css">**
 
 **<script src="your path/pullloading.min.js"></script>**
 
-实例化插件，并传入所需要的参数
-
 ```javascript
+//实例化插件，并传入所需要的参数
 var pullLoading = new PullLoading({
 	container: '.pl-container', // String 下拉刷新容器选择器 (必需)
     threshold: 80, // Number default 80 (可选)
